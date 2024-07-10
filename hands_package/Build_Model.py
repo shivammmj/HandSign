@@ -9,7 +9,6 @@ from sklearn.metrics import accuracy_score
 
 class BuildModel:
     DATA_DIR = 'working/data'
-    #create working directory if it does not exist
     if not os.path.exists(DATA_DIR):
         os.makedirs(DATA_DIR)
 
@@ -77,25 +76,25 @@ class BuildModel:
         #                         max_num_hands=cls.max_num_hands)
 
         for dir_ in os.listdir(cls.DATA_DIR):
-            #looping through each directory - which represents a class?? inside the data.pickle file
+            #SHIVAM - looping through each directory - which represents a class?? inside the data.pickle file
             if dir_ == ".DS_Store":
-                #excluding default macOS dir
+                #SHIVAM - excluding default macOS dir
                 continue
 
             for img_path in os.listdir(os.path.join(cls.DATA_DIR, dir_)):
-                #for each image in current directory/class
+                #SHIVAM - for each image in current directory/class
                 data_aux = []
                 x_ = []
                 y_ = []
 
                 img = cv2.imread(os.path.join(cls.DATA_DIR, dir_, img_path))
-                #using cv2 to read image and extract rgb data
+                # SHIVAM - using cv2 to read image and extract rgb data
                 img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
                 
                 results = cls.hands.process(img_rgb)
-                #if landmarks exist
+                #SHIVAM - if landmarks exist
                 if results.multi_hand_landmarks:
-                    #add each landmark co-ordinate to x_ and y_ array
+                    #SHIVAM - add each landmark co-ordinate to x_ and y_ array
                     for hand_landmarks in results.multi_hand_landmarks:
                         for i in range(len(hand_landmarks.landmark)):
                             x = hand_landmarks.landmark[i].x
@@ -111,9 +110,9 @@ class BuildModel:
                         data_aux.append(y - min(y_))
 
                     cls.data.append(data_aux)
-                    #appending data to class object
+                    #SHIVAM - appending data to class object
                     cls.labels.append(dir_)
-                    #why are we appending the directory name to label in the class object?
+                    #SHIVAM - why are we appending the directory name to label in the class object?
 
         f = open('working/data.pickle', 'wb')
         pickle.dump({'data': cls.data, 'labels': cls.labels}, f)
