@@ -9,6 +9,7 @@ from sklearn.metrics import accuracy_score
 
 class BuildModel:
     DATA_DIR = 'working/data'
+    #create working directory if it does not exist
     if not os.path.exists(DATA_DIR):
         os.makedirs(DATA_DIR)
 
