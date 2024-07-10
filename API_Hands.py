@@ -10,6 +10,7 @@ model_builder = BuildModel()  # Instantiate your BuildModel class
 def test_connection():
     return jsonify({'message': 'Connection successful'}), 200
 
+#SHIVAM - This gets data from the data.pickle file into the class object??
 @app.route('/create_dataset', methods=['POST'])
 def create_dataset():
     model_builder.dataset_creation()
